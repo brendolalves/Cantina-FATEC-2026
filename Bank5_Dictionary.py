@@ -2,23 +2,25 @@
 # Version 5
 # Any number of accounts - with a list of dictionaries
 
-accountsList = []
+Listadprodutos = []
+password = 'admin123'
 
-def newAccount(aName, aBalance, aPassword):
-    global accountsList
-    newAccountDict = {'name':aName, 'balance':aBalance, 'password':aPassword}
-    accountsList.append(newAccountDict)
+def NovoProduto(Produto, ValorCompra, DataCompra, Vencimento):
+    global Listadprodutos
+    NovoProduto = {'nome':Produto, 'Valor da Compra':ValorCompra, 'Data da Compra':DataCompra, 'Vencimento': Vencimento}
+    Listadprodutos.append(NovoProduto)
    
-def show(accountNumber):
-    global accountsList
-    print('Account', accountNumber)
-    thisAccountDict = accountsList[accountNumber]
-    print('       Name', thisAccountDict['name'])
-    print('       Balance:', thisAccountDict['balance'])
-    print('       Password:', thisAccountDict['password'])
+def show(accountNumber): #dados de um produto
+    global Listadprodutos
+    print('Produto', accountNumber)
+    thisProductDict = Listadprodutos[accountNumber]
+    print('       Nome:', thisProductDict['nome'])
+    print('       Valor da Compra:', thisProductDict['Valor da Compra'])
+    print('       Data da Compra:', thisProductDict['Data da Compra'])
+    print('       Vencimento:', thisProductDict['Vencimento'])
     print()
 
-def getBalance(accountNumber, password):
+def inventario(accountNumber, password): #inventário ou quantidade
     global accountsList
     thisAccountDict = accountsList[accountNumber]
     if password != thisAccountDict['password']:
@@ -26,7 +28,7 @@ def getBalance(accountNumber, password):
         return None
     return thisAccountDict['balance']
 
-def deposit(accountNumber, amountToDeposit, password):
+def deposit(accountNumber, amountToDeposit, password): #adcionar produto COM SENHA
     global accountsList
     thisAccountDict = accountsList[accountNumber]
     if amountToDeposit < 0:
@@ -40,7 +42,7 @@ def deposit(accountNumber, amountToDeposit, password):
     thisAccountDict['balance'] = thisAccountDict['balance'] + amountToDeposit
     return thisAccountDict['balance']
     
-def withdraw(accountNumber, amountToWithdraw, password):
+def withdraw(accountNumber, amountToWithdraw, password): #reritada de produto sem senha
     global accountsList
     thisAccountDict = accountsList[accountNumber]
     if amountToWithdraw < 0:
@@ -59,35 +61,36 @@ def withdraw(accountNumber, amountToWithdraw, password):
     return thisAccountDict['balance']
 
 # Create two sample accounts
-print("Joe's account is account number:", len(accountsList))
-newAccount("Joe", 100, 'soup')
+print("Joe's account is account number:", len(Listadprodutos))
+NovoProduto("Joe", 100, 'soup', '01/01/2025')  #(Produto, ValorCompra, DataCompra, Vencimento):
 
-print("Mary's account is account number:", len(accountsList))
-newAccount("Mary", 12345, 'nuts')
+print("Mary's account is account number:", len(Listadprodutos))
+NovoProduto("Mary", 12345, 'nuts', '01/01/2026') #(Produto, ValorCompra, DataCompra, Vencimento):
 
 while True:
     print()
-    print('Press b to get the balance')
-    print('Press d to make a deposit')
-    print('Press n to create a new account')
-    print('Press w to make a withdrawal')
-    print('Press s to show all accounts')
-    print('Press q to quit')
+    print('Presione "b" para descobrir a quantidade de produtos') #administrador
+    print('Presione "d" para adionar um produto já existente') #administrador
+    print('Precione "n" para criar um novo produto') #administrador
+    print('Precione "w" para fazer uma compra') #cliente
+    print('Precione "s" para exibir o catálogo') #cliente e adm
+    print('Precione "q" para sair')
     print()
 
-    action = input('What do you want to do? ')
+    action = input('O que você deseja fazer? ')
     action = action.lower()  # force lowercase
     action = action[0]  # just use first letter
     print()
     
     if action == 'b':
-        print('Get Balance:')
-        userAccountNumber = input('Please enter your account number: ')
+        print('Quantidade de produtos:')
+        userAccountNumber = input('Por favor digite o codigo do produto')
         userAccountNumber = int(userAccountNumber)
-        userPassword = input('Please enter the password: ')
-        theBalance = getBalance(userAccountNumber, userPassword)
-        if theBalance is not None:
-            print('Your balance is:', theBalance)
+        #userPassword = input('Please enter the password: ')
+        #Quantidade = inventario(userAccountNumber, userPassword)
+        Quantidade = inventario(userAccountNumber)
+        if Quantidade is not None:
+            print('A quantidade de produtos é: ', Quantidade)
 
     elif action == 'd':
         print('Deposit:')
@@ -108,13 +111,13 @@ while True:
         userStartingAmount = int(userStartingAmount)
         userPassword = input('What password would you like to use for this account? ')
 
-        userAccountNumber = len(accountsList)
-        newAccount(userName, userStartingAmount, userPassword)
+        userAccountNumber = len(Listadprodutos)
+        NovoProduto(userName, userStartingAmount, userPassword)
         print('Your new account number is:', userAccountNumber)
 
     elif action == 's':   #show all
         print('Show:')
-        nAccounts = len(accountsList)
+        nAccounts = len(Listadprodutos)
         for accountNumber in range(0, nAccounts):
             show(accountNumber)
 
