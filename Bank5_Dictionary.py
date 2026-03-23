@@ -21,7 +21,7 @@ def show(accountNumber): #dados de um produto
     print()
 
 def inventario(accountNumber, password): #inventário ou quantidade
-    global accountsList
+    global Listadprodutos
     thisAccountDict = accountsList[accountNumber]
     if password != thisAccountDict['password']:
         print('Incorrect password')

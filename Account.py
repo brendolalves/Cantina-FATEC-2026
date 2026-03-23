@@ -1,48 +1,52 @@
 # Account class
+from datetime import datetime
 
-class Account():
-    def __init__(self, name, balance, password):
-        self.name = name
-        self.balance = int(balance)
-        self.password = password
+class Produtos():
+    def __init__(self, nome, quantidade, senha, dataCompra, vencimento):
+        self.nome = nome
+        self.quantidade = int(quantidade)
+        self.senha = senha
+        self.dataCompra = dataCompra
+        self.vencimento = vencimento
    
-    def deposit(self, amountToDeposit, password):
-        if password != self.password:
-            print('Sorry, incorrect password')
+    def adicionar(self, qtdAdd, senha):
+        if senha != self.senha:
+            print('Senha errada')
             return None
 
-        if amountToDeposit < 0:
-            print('You cannot deposit a negative amount')
+        if qtdAdd < 0:
+            print('Você não pode adicionar quantidade negativa')
             return None
 
-        self.balance = self.balance + amountToDeposit
-        return self.balance
+        self.quantidade = self.quantidade + qtdAdd
+        self.dataCompra = datetime.now()
+        return self.quantidade
         
-    def withdraw(self, amountToWithdraw, password):
-        if password != self.password:
-            print('Incorrect password for this account')
+    def compra(self, qtdCompra): #, password):
+        #if password != self.password:
+         #   print('Incorrect password for this account')
+          #  return None
+
+        if qtdCompra < 0:
+            print('Você não pode comprar uma quantidade negativa')
             return None
 
-        if amountToWithdraw < 0:
-            print('You cannot withdraw a negative amount')
+        if qtdCompra > self.quantidade:
+            print('Você não pode comprar além da quantidade')
             return None
 
-        if amountToWithdraw > self.balance:
-            print('You cannot withdraw more than you have in your account')
-            return None
+        self.quantidade = self.quantidade - qtdCompra
+        return self.quantidade
 
-        self.balance = self.balance - amountToWithdraw
-        return self.balance
-
-    def getBalance(self, password):
-        if password != self.password:
+    def quantidade(self, senha):
+        if self.senha != self.senha:
             print('Sorry, incorrect password')
             return None
-        return self.balance
+        return self.quantidade
 
     # Added for debugging
-    def show(self):
-        print('       Name:', self.name)
-        print('       Balance:', self.balance)
-        print('       Password:', self.password)
+    def catalogo(self):
+        print('       Produto:', self.nome)
+        print('       Quantidade:', self.quantidade)
+        print('       Senha:', self.senha)
         print()
