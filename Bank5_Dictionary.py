@@ -5,42 +5,43 @@
 Listadprodutos = []
 password = 'admin123'
 
-def NovoProduto(Produto, ValorCompra, DataCompra, Vencimento):
+def NovoProduto(Produto, qtdAdd, ValorCompra, DataCompra, Vencimento):
     global Listadprodutos
-    NovoProduto = {'nome':Produto, 'Valor da Compra':ValorCompra, 'Data da Compra':DataCompra, 'Vencimento': Vencimento}
+    NovoProduto = {'nome':Produto, 'quantidade': qtdAdd, 'Valor da Compra':ValorCompra, 'Data da Compra':DataCompra, 'Vencimento': Vencimento}
     Listadprodutos.append(NovoProduto)
    
-def exibir(accountNumber): #dados de um produto
+def exibir(idProduto): #dados de um produto
     global Listadprodutos
-    print('Produto', accountNumber)
-    thisProductDict = Listadprodutos[accountNumber]
+    print('Produto', idProduto)
+    thisProductDict = Listadprodutos[idProduto]
     print('       Nome:', thisProductDict['nome'])
+    print('       Quantidade: ', thisProductDict['qtdAdd'])
     print('       Valor da Compra:', thisProductDict['Valor da Compra'])
     print('       Data da Compra:', thisProductDict['Data da Compra'])
     print('       Vencimento:', thisProductDict['Vencimento'])
     print()
 
-def inventario(accountNumber, password): #inventário ou quantidade
+def inventario(idProduto, senha): #inventário ou quantidade
     global Listadprodutos
-    thisAccountDict = accountsList[accountNumber]
-    if password != thisAccountDict['password']:
-        print('Incorrect password')
+    thisAccountDict = Listadprodutos[idProduto]
+    if senha != thisAccountDict['senha']:
+        print('Senha errada')
         return None
-    return thisAccountDict['balance']
+    return thisAccountDict['valorCompra']
 
-def deposit(accountNumber, amountToDeposit, password): #adcionar produto COM SENHA
-    global accountsList
-    thisAccountDict = accountsList[accountNumber]
-    if amountToDeposit < 0:
-        print('You cannot deposit a negative amount!')
+def repositor(idProduto, qtdAdd, senha): #adcionar produto COM SENHA
+    global Listadprodutos
+    thisAccountDict = Listadprodutos[idProduto]
+    if qtdAdd < 0:
+        print('Você não pode adicionar produtos negativos')
         return None
         
-    if password != thisAccountDict['password']:
-        print('Incorrect password')
+    if senha != thisAccountDict['senha']:
+        print('Senha incorreta')
         return None
     
-    thisAccountDict['balance'] = thisAccountDict['balance'] + amountToDeposit
-    return thisAccountDict['balance']
+    thisAccountDict['qtdAdd'] = thisAccountDict['qtdAdd'] + qtdAdd
+    return thisAccountDict['qtdAdd']
     
 def withdraw(accountNumber, amountToWithdraw, password): #reritada de produto sem senha
     global accountsList
@@ -53,19 +54,23 @@ def withdraw(accountNumber, amountToWithdraw, password): #reritada de produto se
         print('Incorrect password for this account')
         return None
 
-    if amountToWithdraw > thisAccountDict['balance']: #compra além da quantidade
+    if amountToWithdraw > thisAccountDict['qtdAdd']: #compra além da quantidade
         print('You cannot withdraw more than you have in your account')
         return None
 
-    thisAccountDict['balance'] = thisAccountDict['balance'] - amountToWithdraw
-    return thisAccountDict['balance'] #quantidade após a compra
+    thisAccountDict['qtdAdd'] = thisAccountDict['qtdAdd'] - amountToWithdraw
+    return thisAccountDict['qtdAdd'] #quantidade após a compra
+
+
+############################################################################################
+
 
 # Create two sample accounts
 print("Joe's account is account number:", len(Listadprodutos))
-NovoProduto("Joe", 100, 'soup', '01/01/2025')  #(Produto, ValorCompra, DataCompra, Vencimento):
+NovoProduto("Joe", 10,  100, 'soup', '01/01/2025')  #(Produto, ValorCompra, DataCompra, Vencimento):
 
 print("Mary's account is account number:", len(Listadprodutos))
-NovoProduto("Mary", 12345, 'nuts', '01/01/2026') #(Produto, ValorCompra, DataCompra, Vencimento):
+NovoProduto("Mary", 10, 12345, 'nuts', '01/01/2026') #(Produto, ValorCompra, DataCompra, Vencimento):
 
 while True:
     print()
@@ -102,7 +107,7 @@ while True:
         #temos que adicionar a data da compra e a data do vencimento
 
 
-        newBalance = deposit(userAccountNumber, userDepositAmount, userPassword)
+        newBalance = repositor(userAccountNumber, userDepositAmount, userPassword)
         if newBalance is not None:
             print('Your new balance is:', newBalance) #a nova quantidade de produtos
         

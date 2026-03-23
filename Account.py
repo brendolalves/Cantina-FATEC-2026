@@ -22,7 +22,8 @@ class Produtos():
         self.dataCompra = datetime.now()
         return self.quantidade
         
-    def compra(self, qtdCompra): #, password):
+    def compra(self, qtdCompra): 
+        #, password):
         #if password != self.password:
          #   print('Incorrect password for this account')
           #  return None
