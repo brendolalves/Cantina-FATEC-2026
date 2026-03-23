@@ -1,4 +1,4 @@
-# Non-OOP Bank
+# Non-OOP Bank ------>>>>>>> temos que criar uma classe e separar em um outro programa a linha 63 em diante (encapsular as funcões das ações do usuário)
 # Version 5
 # Any number of accounts - with a list of dictionaries
 
@@ -10,7 +10,7 @@ def NovoProduto(Produto, ValorCompra, DataCompra, Vencimento):
     NovoProduto = {'nome':Produto, 'Valor da Compra':ValorCompra, 'Data da Compra':DataCompra, 'Vencimento': Vencimento}
     Listadprodutos.append(NovoProduto)
    
-def show(accountNumber): #dados de um produto
+def exibir(accountNumber): #dados de um produto
     global Listadprodutos
     print('Produto', accountNumber)
     thisProductDict = Listadprodutos[accountNumber]
@@ -46,19 +46,19 @@ def withdraw(accountNumber, amountToWithdraw, password): #reritada de produto se
     global accountsList
     thisAccountDict = accountsList[accountNumber]
     if amountToWithdraw < 0:
-        print('You cannot withdraw a negative amount')
+        print('You cannot withdraw a negative amount') #compra negativa
         return None
 
-    if password != thisAccountDict['password']:
+    if password != thisAccountDict['password']: #sem senha
         print('Incorrect password for this account')
         return None
 
-    if amountToWithdraw > thisAccountDict['balance']:
+    if amountToWithdraw > thisAccountDict['balance']: #compra além da quantidade
         print('You cannot withdraw more than you have in your account')
         return None
 
     thisAccountDict['balance'] = thisAccountDict['balance'] - amountToWithdraw
-    return thisAccountDict['balance']
+    return thisAccountDict['balance'] #quantidade após a compra
 
 # Create two sample accounts
 print("Joe's account is account number:", len(Listadprodutos))
@@ -93,47 +93,53 @@ while True:
             print('A quantidade de produtos é: ', Quantidade)
 
     elif action == 'd':
-        print('Deposit:')
-        userAccountNumber= input('Please enter the account number: ')
+        print('Deposit:') #adicionar mais produtos já cadastrado
+        userAccountNumber= input('Please enter the account number: ') #cod do produto (lugar na lista?)
         userAccountNumber = int(userAccountNumber)
-        userDepositAmount = input('Please enter amount to deposit: ')
+        userDepositAmount = input('Please enter amount to deposit: ') #quantidade que foi colocada na bandeja
         userDepositAmount = int(userDepositAmount)
-        userPassword = input('Please enter the password: ')
+        userPassword = input('Please enter the password: ') #senha do adm da cantina
+        #temos que adicionar a data da compra e a data do vencimento
+
 
         newBalance = deposit(userAccountNumber, userDepositAmount, userPassword)
         if newBalance is not None:
-            print('Your new balance is:', newBalance)
+            print('Your new balance is:', newBalance) #a nova quantidade de produtos
         
     elif action == 'n':
-        print('New Account:')
-        userName = input('What is your name? ')
-        userStartingAmount = input('What is the amount of your initial deposit? ')
+        print('New Account:') #um novo produto na bandeja
+        userName = input('What is your name? ') #qual o nome do produto 
+        userStartingAmount = input('What is the amount of your initial deposit? ') #qual é a quantidade que foi depositada
         userStartingAmount = int(userStartingAmount)
-        userPassword = input('What password would you like to use for this account? ')
+        userPassword = input('What password would you like to use for this account? ') #a senha tem que ser padrão
+
+        #temos que adicionar a data da compra e a data do vencimento
 
         userAccountNumber = len(Listadprodutos)
         NovoProduto(userName, userStartingAmount, userPassword)
         print('Your new account number is:', userAccountNumber)
 
     elif action == 's':   #show all
-        print('Show:')
+        print('Todos os produtos:')
         nAccounts = len(Listadprodutos)
         for accountNumber in range(0, nAccounts):
-            show(accountNumber)
+            exibir(accountNumber)
 
     elif action == 'q':
         break
 
     elif action == 'w':
-        print('Withdraw:')
-        userAccountNumber = input('Please enter your account number: ')
+        print('Withdraw:') #compra
+        userAccountNumber = input('Please enter your account number: ') #qual produto
         userAccountNumber = int(userAccountNumber)
-        userWithdrawAmount = input('Please enter the amount to withdraw: ')
+        userWithdrawAmount = input('Please enter the amount to withdraw: ') #quantidade de compra
         userWithdrawAmount = int(userWithdrawAmount)
-        userPassword = input('Please enter the password: ')
+        userPassword = input('Please enter the password: ') #não precisa de senha
+#criar uma variavel para a data da compra e com o valor... (criar uma carteira onde vamos saber o valor do caixa)
+
  
         newBalance = withdraw(userAccountNumber, userWithdrawAmount, userPassword)
         if newBalance is not None:
-            print('Your new balance is:', newBalance)       
+            print('Your new balance is:', newBalance)       #mova quantidade do produto
 
 print('Done')
