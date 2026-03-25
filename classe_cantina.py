@@ -18,7 +18,7 @@ class cantina():
          self.Listadprodutos.append(nProduto)
    
     def exibir(idProduto): #dados de um produto
-        global Listadprodutos
+        #global Listadprodutos
         print('Id do Produto: ', idProduto)
         thisProductDict = Listadprodutos[idProduto]
         print('       Nome:', thisProductDict['nome'])
@@ -29,15 +29,15 @@ class cantina():
         print()
 
     def inventario(self, idProduto, senha): #inventário ou quantidade
-        thisAccountDict = Listadprodutos[idProduto]
+        thisAccountDict = self.Listadprodutos[idProduto]
         if senha != thisAccountDict['senha']:
             print('Senha errada')
             return None
         return thisAccountDict['qtdAdd']
 
     def repositor(self, idProduto, qtdAdd, senha): #adcionar produto COM SENHA
-        global Listadprodutos
-        thisAccountDict = Listadprodutos[idProduto]
+        #global Listadprodutos
+        thisAccountDict = self.Listadprodutos[idProduto]
         if qtdAdd < 0:
             print('Você não pode adicionar produtos negativos')
             return None
@@ -50,14 +50,14 @@ class cantina():
         return thisAccountDict['qtdAdd']
     
     def compra(self, idProduto, qtdBuy): #reritada de produto sem senha
-        global Listadprodutos
-        thisAccountDict = Listadprodutos[idProduto]
+        #global Listadprodutos
+        thisAccountDict = self.Listadprodutos[idProduto]
         if qtdBuy < 0:
             print('Você não pode comprar uma quantidade negativa') #compra negativa
             return None
         
         if qtdBuy > thisAccountDict['qtdAdd']: #compra além da quantidade
-            print('You cannot withdraw more than you have in your account')
+            print('Você não podecomprar além do estoque')
             return None
 
         thisAccountDict['qtdAdd'] = thisAccountDict['qtdAdd'] - qtdBuy

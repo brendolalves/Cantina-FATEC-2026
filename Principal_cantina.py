@@ -28,45 +28,44 @@ while True:
         print('Quantidade de produtos:')
         idProduto = input('Por favor digite o codigo do produto')
         idProduto = int(idProduto)
-        senha = input('Please enter the password: ')
+        senha = input('Digite a senha: ')
         
         #Quantidade = inventario(userAccountNumber, userPassword)
-        Quantidade = cantina.inventario(idProduto, senha)
+        qtd = cantina.inventario(idProduto, senha)
         
-        if Quantidade is not None:
+        if qtd is not None:
             
-            print('A quantidade de produtos é: ', Quantidade)
+            print('A quantidade de produtos é: ', qtd)
 
     elif action == 'd':
         print('Adicionar novos produtos:') #adicionar mais produtos já cadastrado
         idProduto= input('Por favor entre com o código do produto') #cod do produto (lugar na lista?)
         idProduto = int(idProduto)
-        userDepositAmount = input('Por favor adicione a quantidade do produto que deseja adicionar') #quantidade que foi colocada na bandeja
-        userDepositAmount = int(userDepositAmount)
-        userPassword = input('Por favor digite a senha') #senha do adm da cantina
+        qtd = int(input('Por favor adicione a quantidade do produto que deseja adicionar')) #quantidade que foi colocada na bandeja
+        senha = input('Por favor digite a senha') #senha do adm da cantina
         #temos que adicionar a data da compra e a data do vencimento
 
 
-        newBalance = cantina.repositor(idProduto, userDepositAmount, userPassword)
-        if newBalance is not None:
-            print('Your new balance is:', newBalance) #a nova quantidade de produtos
+        novoestoque = cantina.repositor(idProduto, qtd, senha)
+        if novoestoque is not None:
+            print('Novo estoque: ', novoestoque) #a nova quantidade de produtos
         
     elif action == 'n':
         print('Cadastrar um novo produto: ') #um novo produto na bandeja
         produtoNovo = input('Qual é o produto? ') #qual o nome do produto 
-        NovaQtd = input('Qual é a quantidade que você deseja adicionar? ') #qual é a quantidade que foi depositada
-        NovaQtd = int(NovaQtd)
+        NovaQtd = int(input('Qual é a quantidade que você deseja adicionar? ')) #qual é a quantidade que foi depositada
         NovaSenha = input('Qual é a senha que deseja? ') #a senha tem que ser padrão
-        usuarioCompra = input("Qual foi o valor da compra?")
-        usuarioCompra = int(usuarioCompra)
-        usuarioData = input('Qual foi a data da compra?')
+        usuarioCompra = float(input("Qual foi o valor da compra? "))
+        if usuarioCompra < 0:
+                print('Não digite um valor negativo, execute novamente')
+                break
+        usuarioData = input('Quando foi a compra? ')
         usuarioVencimnto = input("Quando é o vencimento do produto? ")
 
         #temos que adicionar a data da compra e a data do vencimento
 
-        
+        ProdutoUsuario = len(cantina.Listadprodutos)
         cantina.NovoProduto(produtoNovo, NovaSenha, NovaQtd, usuarioCompra, usuarioData, usuarioVencimnto)
-        ProdutoUsuario = len(cantina.Listadprodutos) - 1
         print('Seu novo produto é: ', ProdutoUsuario)
 
     elif action == 's':   #show all
@@ -74,9 +73,6 @@ while True:
         nAccounts = len(cantina.Listadprodutos)
         for accountNumber in range(0, nAccounts):
             cantina.exibir(accountNumber)
-
-    elif action == 'q':
-        break
 
     elif action == 'w':
         print('Compra:') #compra
@@ -93,4 +89,7 @@ while True:
         if newBalance is not None:
             print('Your new balance is:', newBalance)       #mova quantidade do produto
 
-print('Done')
+    elif action == 'q':
+        break
+
+print('Obrigado por usuar a Cantina da Faatec RC')
