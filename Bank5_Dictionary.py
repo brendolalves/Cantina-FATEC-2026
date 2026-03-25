@@ -5,9 +5,9 @@
 Listadprodutos = []
 password = 'admin123'
 
-def NovoProduto(Produto, qtdAdd, ValorCompra, DataCompra, Vencimento):
+def NovoProduto(Produto, senha, qtdAdd, ValorCompra, DataCompra, Vencimento):
     global Listadprodutos
-    NovoProduto = {'nome':Produto, 'quantidade': qtdAdd, 'Valor da Compra':ValorCompra, 'Data da Compra':DataCompra, 'Vencimento': Vencimento}
+    NovoProduto = {'nome':Produto, 'senha': senha, 'qtdAdd': qtdAdd, 'Valor da Compra':ValorCompra, 'Data da Compra':DataCompra, 'Vencimento': Vencimento}
     Listadprodutos.append(NovoProduto)
    
 def exibir(idProduto): #dados de um produto
@@ -27,7 +27,7 @@ def inventario(idProduto, senha): #inventário ou quantidade
     if senha != thisAccountDict['senha']:
         print('Senha errada')
         return None
-    return thisAccountDict['valorCompra']
+    return thisAccountDict['qtdAdd']
 
 def repositor(idProduto, qtdAdd, senha): #adcionar produto COM SENHA
     global Listadprodutos
@@ -43,22 +43,24 @@ def repositor(idProduto, qtdAdd, senha): #adcionar produto COM SENHA
     thisAccountDict['qtdAdd'] = thisAccountDict['qtdAdd'] + qtdAdd
     return thisAccountDict['qtdAdd']
     
-def withdraw(accountNumber, amountToWithdraw, password): #reritada de produto sem senha
-    global accountsList
-    thisAccountDict = accountsList[accountNumber]
-    if amountToWithdraw < 0:
-        print('You cannot withdraw a negative amount') #compra negativa
+def compra(idProduto, qtdBuy): #reritada de produto sem senha
+    global Listadprodutos
+    thisAccountDict = Listadprodutos[idProduto]
+    if qtdBuy < 0:
+        print('Você não pode comprar uma quantidade negativa') #compra negativa
         return None
 
-    if password != thisAccountDict['password']: #sem senha
+    '''if password != thisAccountDict['password']: #sem senha
         print('Incorrect password for this account')
+        return None'''
+    
+    thisAccountDict['qtdAdd'] = int(thisAccountDict['qtdAdd'])
+
+    if qtdBuy > thisAccountDict['qtdAdd']: #compra além da quantidade
+        print('Você não pode comprar além do disponivel')
         return None
 
-    if amountToWithdraw > thisAccountDict['qtdAdd']: #compra além da quantidade
-        print('You cannot withdraw more than you have in your account')
-        return None
-
-    thisAccountDict['qtdAdd'] = thisAccountDict['qtdAdd'] - amountToWithdraw
+    thisAccountDict['qtdAdd'] = thisAccountDict['qtdAdd'] - qtdBuy
     return thisAccountDict['qtdAdd'] #quantidade após a compra
 
 
@@ -66,11 +68,11 @@ def withdraw(accountNumber, amountToWithdraw, password): #reritada de produto se
 
 
 # Create two sample accounts
-print("Joe's account is account number:", len(Listadprodutos))
-NovoProduto("Joe", 10,  100, 'soup', '01/01/2025')  #(Produto, ValorCompra, DataCompra, Vencimento):
+print("a identificação do produto Bolinho é:" , len(Listadprodutos))
+NovoProduto("Bolinho", "adm123",  100, 1, '01/01/2025', '01/01/2026')  #(Produto, ValorCompra, DataCompra, Vencimento):
 
-print("Mary's account is account number:", len(Listadprodutos))
-NovoProduto("Mary", 10, 12345, 'nuts', '01/01/2026') #(Produto, ValorCompra, DataCompra, Vencimento):
+print("a identificação do produto Salgadinho é", len(Listadprodutos))
+NovoProduto("Salgadinho", "adm123", 10, 2,  "01/01/2026", '01/01/2026') #(Produto, ValorCompra, DataCompra, Vencimento):
 
 while True:
     print()
@@ -89,62 +91,66 @@ while True:
     
     if action == 'b':
         print('Quantidade de produtos:')
-        userAccountNumber = input('Por favor digite o codigo do produto')
-        userAccountNumber = int(userAccountNumber)
-        #userPassword = input('Please enter the password: ')
+        idProduto = input('Por favor digite o codigo do produto')
+        idProduto = int(idProduto)
+        senha = input('Por favor digite a senha: ')
         #Quantidade = inventario(userAccountNumber, userPassword)
-        Quantidade = inventario(userAccountNumber)
+        Quantidade = inventario(idProduto, senha)
         if Quantidade is not None:
             print('A quantidade de produtos é: ', Quantidade)
 
     elif action == 'd':
-        print('Deposit:') #adicionar mais produtos já cadastrado
-        userAccountNumber= input('Please enter the account number: ') #cod do produto (lugar na lista?)
-        userAccountNumber = int(userAccountNumber)
-        userDepositAmount = input('Please enter amount to deposit: ') #quantidade que foi colocada na bandeja
+        print('Adicionar novos produtos:') #adicionar mais produtos já cadastrado
+        idProduto= input('Por favor entre com o  código do produto ') #cod do produto (lugar na lista?)
+        idProduto = int(idProduto)
+        userDepositAmount = input('Por favor adicione a quantidade do produto que deseja adicionar ') #quantidade que foi colocada na bandeja
         userDepositAmount = int(userDepositAmount)
-        userPassword = input('Please enter the password: ') #senha do adm da cantina
+        senha = input('Por favor digite a senha: ') #senha do adm da cantina
         #temos que adicionar a data da compra e a data do vencimento
 
 
-        newBalance = repositor(userAccountNumber, userDepositAmount, userPassword)
-        if newBalance is not None:
-            print('Your new balance is:', newBalance) #a nova quantidade de produtos
+        novacontagem = repositor(idProduto, userDepositAmount, senha)
+        if novacontagem is not None:
+            print('A quantidade de produtos é: ', novacontagem) #a nova quantidade de produtos
         
     elif action == 'n':
-        print('New Account:') #um novo produto na bandeja
-        userName = input('What is your name? ') #qual o nome do produto 
-        userStartingAmount = input('What is the amount of your initial deposit? ') #qual é a quantidade que foi depositada
-        userStartingAmount = int(userStartingAmount)
-        userPassword = input('What password would you like to use for this account? ') #a senha tem que ser padrão
+        print('Cadastrar um novo produto: ') #um novo produto na bandeja
+        produtoNovo = input('Qual é o produto? ') #qual o nome do produto 
+        NovaQtd = input('Qual é a quantidade que você deseja adicionar? ') #qual é a quantidade que foi depositada
+        NovaQtd = int(NovaQtd)
+        NovaSenha = input('Qual é a senha que deseja? ') #a senha tem que ser padrão
+        usuarioCompra = input("Qual foi o valor da compra?")
+        usuarioCompra = int(usuarioCompra)
+        usuarioData = input('Qual foi a data da compra?')
+        usuarioVencimnto = input("Quando é o vencimento do produto? ")
 
         #temos que adicionar a data da compra e a data do vencimento
 
-        userAccountNumber = len(Listadprodutos)
-        NovoProduto(userName, userStartingAmount, userPassword)
-        print('Your new account number is:', userAccountNumber)
+        ProdutoUsuario = len(Listadprodutos)
+        NovoProduto(produtoNovo, NovaSenha, NovaQtd, usuarioCompra, usuarioData, usuarioVencimnto)
+        print('Seu novo produto é: ', ProdutoUsuario)
 
     elif action == 's':   #show all
         print('Todos os produtos:')
-        nAccounts = len(Listadprodutos)
-        for accountNumber in range(0, nAccounts):
-            exibir(accountNumber)
+        tdsProdutos = len(Listadprodutos)
+        for id in range(0, tdsProdutos):
+            exibir(id)
 
     elif action == 'q':
         break
 
     elif action == 'w':
-        print('Withdraw:') #compra
-        userAccountNumber = input('Please enter your account number: ') #qual produto
+        print('Compra:') #compra
+        userAccountNumber = input('Por favor entre com o código do produto:  ') #qual produto
         userAccountNumber = int(userAccountNumber)
-        userWithdrawAmount = input('Please enter the amount to withdraw: ') #quantidade de compra
+        userWithdrawAmount = input('Quantos produtos você quer comprar?: ') #quantidade de compra
         userWithdrawAmount = int(userWithdrawAmount)
-        userPassword = input('Please enter the password: ') #não precisa de senha
+       # userPassword = input('Please enter the password: ') #não precisa de senha
 #criar uma variavel para a data da compra e com o valor... (criar uma carteira onde vamos saber o valor do caixa)
 
  
-        newBalance = withdraw(userAccountNumber, userWithdrawAmount, userPassword)
-        if newBalance is not None:
-            print('Your new balance is:', newBalance)       #mova quantidade do produto
+        novacontagem = compra(userAccountNumber, userWithdrawAmount)
+        if novacontagem is not None:
+            print('A contagem de produtos é: ', novacontagem)       #mova quantidade do produto
 
 print('Done')
