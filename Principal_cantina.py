@@ -4,10 +4,10 @@ from classe_cantina import cantina, admin
 cantina=admin()
 
 print("a identificação do produto Bolinho é: ", len(cantina.Listadprodutos))
-#NovoProduto("Bolinho", 'adm123', 10,  1, '01/01/2025', '01/01/2025')  #(Produto, ValorCompra, DataCompra, Vencimento):
-cantina.NovoProduto("Bolinho", 'adm123', 10,  1, '01/01/2025', '01/01/2025')
+#NovoProduto("Bolinho", 10,  1, '01/01/2025', '01/01/2025')  #(Produto, ValorCompra, DataCompra, Vencimento):
+cantina.NovoProduto("Bolinho", 10,  1, '01/01/2025', '01/01/2025')
 print("a identificação do produto Salgadinho é: ", len(cantina.Listadprodutos))
-cantina.NovoProduto("Salgadinho", 'adm123', 10, 2, '01/01/2025', '01/01/2026') #(Produto, ValorCompra, DataCompra, Vencimento):
+cantina.NovoProduto("Salgadinho", 10, 2, '01/01/2025', '01/01/2026') #(Produto, ValorCompra, DataCompra, Vencimento):
 
 while True:
     print()
@@ -28,10 +28,10 @@ while True:
         print('Quantidade de produtos:')
         idProduto = input('Por favor digite o codigo do produto')
         idProduto = int(idProduto)
-        senha = input('Digite a senha: ')
+        #senha = input('Digite a senha: ')
         
         #Quantidade = inventario(userAccountNumber, userPassword)
-        qtd = cantina.inventario(idProduto, senha)
+        qtd = cantina.inventario(idProduto)
         
         if qtd is not None:
             
@@ -42,11 +42,11 @@ while True:
         idProduto= input('Por favor entre com o código do produto') #cod do produto (lugar na lista?)
         idProduto = int(idProduto)
         qtd = int(input('Por favor adicione a quantidade do produto que deseja adicionar')) #quantidade que foi colocada na bandeja
-        senha = input('Por favor digite a senha') #senha do adm da cantina
+        #senha = input('Por favor digite a senha') #senha do adm da cantina
         #temos que adicionar a data da compra e a data do vencimento
 
 
-        novoestoque = cantina.repositor(idProduto, qtd, senha)
+        novoestoque = cantina.repositor(idProduto, qtd)
         if novoestoque is not None:
             print('Novo estoque: ', novoestoque) #a nova quantidade de produtos
         
@@ -54,7 +54,7 @@ while True:
         print('Cadastrar um novo produto: ') #um novo produto na bandeja
         produtoNovo = input('Qual é o produto? ') #qual o nome do produto 
         NovaQtd = int(input('Qual é a quantidade que você deseja adicionar? ')) #qual é a quantidade que foi depositada
-        NovaSenha = input('Qual é a senha que deseja? ') #a senha tem que ser padrão
+        #NovaSenha = input('Qual é a senha que deseja? ') #a senha tem que ser padrão
         usuarioCompra = float(input("Qual foi o valor da compra? "))
         if usuarioCompra < 0:
                 print('Não digite um valor negativo, execute novamente')
@@ -65,7 +65,7 @@ while True:
         #temos que adicionar a data da compra e a data do vencimento
 
         ProdutoUsuario = len(cantina.Listadprodutos)
-        cantina.NovoProduto(produtoNovo, NovaSenha, NovaQtd, usuarioCompra, usuarioData, usuarioVencimnto)
+        cantina.NovoProduto(produtoNovo, NovaQtd, usuarioCompra, usuarioData, usuarioVencimnto)
         print('Seu novo produto é: ', ProdutoUsuario)
 
     elif action == 's':   #show all

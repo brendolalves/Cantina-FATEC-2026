@@ -35,11 +35,11 @@ class cantina():
     
 class admin(cantina):        
     
-    def NovoProduto(self, Produto, senha, qtdAdd, ValorCompra, DataCompra, Vencimento): #admin
+    def NovoProduto(self, Produto, qtdAdd, ValorCompra, DataCompra, Vencimento): #admin
          #global Listadprodutos
          nProduto = {
              'nome':Produto, 
-             'senha': senha, 
+             #'senha': senha, 
              'qtdAdd': qtdAdd, 
              'Valor da Compra':ValorCompra, 
              'Data da Compra':DataCompra, 
@@ -47,23 +47,23 @@ class admin(cantina):
         }
          self.Listadprodutos.append(nProduto)
 
-    def inventario(self, idProduto, senha): #inventário ou quantidade #admin
+    def inventario(self, idProduto): #inventário ou quantidade #admin
         thisAccountDict = self.Listadprodutos[idProduto]
-        if senha != thisAccountDict['senha']:
+        '''if senha != thisAccountDict['senha']:
             print('Senha errada')
-            return None
+            return None'''
         return thisAccountDict['qtdAdd']
 
-    def repositor(self, idProduto, qtdAdd, senha): #adcionar produto COM SENHA #admin
+    def repositor(self, idProduto, qtdAdd): #adcionar produto COM SENHA #admin
         #global Listadprodutos
         thisAccountDict = self.Listadprodutos[idProduto]
         if qtdAdd < 0:
             print('Você não pode adicionar produtos negativos')
             return None
         
-        if senha != thisAccountDict['senha']:
+        '''if senha != thisAccountDict['senha']:
             print('Senha incorreta')
-            return None
+            return None'''
     
         thisAccountDict['qtdAdd'] = thisAccountDict['qtdAdd'] + qtdAdd
         return thisAccountDict['qtdAdd']
