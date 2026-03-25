@@ -1,7 +1,7 @@
-from classe_cantina import cantina
+from classe_cantina import cantina, admin
 
 #NovoProduto = cantina()
-cantina=cantina()
+cantina=admin()
 
 print("a identificação do produto Bolinho é: ", len(cantina.Listadprodutos))
 #NovoProduto("Bolinho", 'adm123', 10,  1, '01/01/2025', '01/01/2025')  #(Produto, ValorCompra, DataCompra, Vencimento):
