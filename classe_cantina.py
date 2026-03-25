@@ -3,7 +3,7 @@
 class cantina():
     def __init__(self):
         self.Listadprodutos = []
-        self.password = 'admin123'
+        #self.password = 'admin123'
 
    
     def exibir(self, idProduto): #dados de um produto
@@ -33,7 +33,15 @@ class cantina():
         thisAccountDict['qtdAdd'] = thisAccountDict['qtdAdd'] - qtdBuy
         return thisAccountDict['qtdAdd'] #quantidade após a compra
     
-class admin(cantina):        
+class admin(cantina):
+
+    def __init__(self):
+        self.Listadprodutos = []
+        self.senha = 'admin123'
+
+    def administrador_login(self, senha):
+        return senha == self.senha
+
     
     def NovoProduto(self, Produto, qtdAdd, ValorCompra, DataCompra, Vencimento): #admin
          #global Listadprodutos
