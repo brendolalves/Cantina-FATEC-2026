@@ -3,18 +3,23 @@
 class cantina():
     def __init__(self):
         self.Listadprodutos = []
-    
+        self.password = 'admin123'
 
-    password = 'admin123'
-
-    def NovoProduto(Produto, senha, qtdAdd, ValorCompra, DataCompra, Vencimento):
-         global Listadprodutos
-         NovoProduto = {'nome':Produto, 'senha': senha, 'qtdAdd': qtdAdd, 'Valor da Compra':ValorCompra, 'Data da Compra':DataCompra, 'Vencimento': Vencimento}
-         Listadprodutos.append(NovoProduto)
+    def NovoProduto(self, Produto, senha, qtdAdd, ValorCompra, DataCompra, Vencimento):
+         #global Listadprodutos
+         nProduto = {
+             'nome':Produto, 
+             'senha': senha, 
+             'qtdAdd': qtdAdd, 
+             'Valor da Compra':ValorCompra, 
+             'Data da Compra':DataCompra, 
+             'Vencimento': Vencimento
+        }
+         self.Listadprodutos.append(nProduto)
    
     def exibir(idProduto): #dados de um produto
         global Listadprodutos
-        print('Produto', idProduto)
+        print('Id do Produto: ', idProduto)
         thisProductDict = Listadprodutos[idProduto]
         print('       Nome:', thisProductDict['nome'])
         print('       Quantidade: ', thisProductDict['qtdAdd'])
@@ -23,15 +28,14 @@ class cantina():
         print('       Vencimento:', thisProductDict['Vencimento'])
         print()
 
-    def inventario(idProduto, senha): #inventário ou quantidade
-        global Listadprodutos
+    def inventario(self, idProduto, senha): #inventário ou quantidade
         thisAccountDict = Listadprodutos[idProduto]
         if senha != thisAccountDict['senha']:
             print('Senha errada')
             return None
         return thisAccountDict['qtdAdd']
 
-    def repositor(idProduto, qtdAdd, senha): #adcionar produto COM SENHA
+    def repositor(self, idProduto, qtdAdd, senha): #adcionar produto COM SENHA
         global Listadprodutos
         thisAccountDict = Listadprodutos[idProduto]
         if qtdAdd < 0:
@@ -45,7 +49,7 @@ class cantina():
         thisAccountDict['qtdAdd'] = thisAccountDict['qtdAdd'] + qtdAdd
         return thisAccountDict['qtdAdd']
     
-    def compra(idProduto, qtdBuy): #reritada de produto sem senha
+    def compra(self, idProduto, qtdBuy): #reritada de produto sem senha
         global Listadprodutos
         thisAccountDict = Listadprodutos[idProduto]
         if qtdBuy < 0:
