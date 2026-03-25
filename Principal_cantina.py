@@ -52,17 +52,22 @@ while True:
             print('Your new balance is:', newBalance) #a nova quantidade de produtos
         
     elif action == 'n':
-        print('Cadastrar um novo produto:') #um novo produto na bandeja
-        userName = input('Qual é o produto? ') #qual o nome do produto 
-        userStartingAmount = input('Qual é a quantidade que você deseja adicionar? ') #qual é a quantidade que foi depositada
-        userStartingAmount = int(userStartingAmount)
-        userPassword = input('Qual e a senha que deseja? ') #a senha tem que ser padrão
+        print('Cadastrar um novo produto: ') #um novo produto na bandeja
+        produtoNovo = input('Qual é o produto? ') #qual o nome do produto 
+        NovaQtd = input('Qual é a quantidade que você deseja adicionar? ') #qual é a quantidade que foi depositada
+        NovaQtd = int(NovaQtd)
+        NovaSenha = input('Qual é a senha que deseja? ') #a senha tem que ser padrão
+        usuarioCompra = input("Qual foi o valor da compra?")
+        usuarioCompra = int(usuarioCompra)
+        usuarioData = input('Qual foi a data da compra?')
+        usuarioVencimnto = input("Quando é o vencimento do produto? ")
 
         #temos que adicionar a data da compra e a data do vencimento
 
-        userAccountNumber = len(cantina.Listadprodutos)
-        cantina.NovoProduto(userName, userStartingAmount, userPassword)
-        print('Your new account number is:', userAccountNumber)
+        
+        cantina.NovoProduto(produtoNovo, NovaSenha, NovaQtd, usuarioCompra, usuarioData, usuarioVencimnto)
+        ProdutoUsuario = len(cantina.Listadprodutos) - 1
+        print('Seu novo produto é: ', ProdutoUsuario)
 
     elif action == 's':   #show all
         print('Todos os produtos:')

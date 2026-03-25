@@ -1,7 +1,7 @@
 #from Account import Account
 
 class cantina():
-    def __int__(self):
+    def __init__(self):
         self.Listadprodutos = []
     
 
