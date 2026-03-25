@@ -76,18 +76,16 @@ while True:
 
     elif action == 'w':
         print('Compra:') #compra
-        userAccountNumber = input('Por favoe entre com o codigo do produto ') #qual produto
-        userAccountNumber = int(userAccountNumber)
-        userWithdrawAmount = input('Por favor, quantos produtos você deseja comprar? ') #quantidade de compra
-        userWithdrawAmount = int(userWithdrawAmount)
+        idProduto = int(input('Por favoe entre com o codigo do produto ')) #qual produto
+        qtdCompra = int(input('Por favor, quantos produtos você deseja comprar? ')) #quantidade de compra
         '''userPassword = input('Please enter the password: ')'''
          #não precisa de senha
 #criar uma variavel para a data da compra e com o valor... (criar uma carteira onde vamos saber o valor do caixa)
 
  
-        newBalance = cantina.compra(userAccountNumber, userWithdrawAmount)
-        if newBalance is not None:
-            print('Your new balance is:', newBalance)       #mova quantidade do produto
+        NovaQtd = cantina.compra(idProduto, qtdCompra)
+        if NovaQtd is not None:
+            print('A quantidade disponivel neste momento é: ', NovaQtd)       #mova quantidade do produto
 
     elif action == 'q':
         break

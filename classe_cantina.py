@@ -17,10 +17,10 @@ class cantina():
         }
          self.Listadprodutos.append(nProduto)
    
-    def exibir(idProduto): #dados de um produto
+    def exibir(self, idProduto): #dados de um produto
         #global Listadprodutos
         print('Id do Produto: ', idProduto)
-        thisProductDict = Listadprodutos[idProduto]
+        thisProductDict = self.Listadprodutos[idProduto]
         print('       Nome:', thisProductDict['nome'])
         print('       Quantidade: ', thisProductDict['qtdAdd'])
         print('       Valor da Compra:', thisProductDict['Valor da Compra'])
