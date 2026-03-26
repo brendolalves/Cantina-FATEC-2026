@@ -12,9 +12,10 @@ class cantina():
         thisProductDict = self.Listadprodutos[idProduto]
         print('       Nome:', thisProductDict['nome'])
         print('       Quantidade: ', thisProductDict['qtdAdd'])
-        print('       Valor da Compra:', thisProductDict['Valor da Compra'])
-        print('       Data da Compra:', thisProductDict['Data da Compra'])
-        print('       Vencimento:', thisProductDict['Vencimento'])
+        #print('       Valor da Compra:', thisProductDict['Valor da Compra'])
+        #print('       Data da Compra:', thisProductDict['Data da Compra'])
+        #print('       Vencimento:', thisProductDict['Vencimento'])
+        print('       Lucro em %: ', thisProductDict['Lucro em %'])
         print()
 
     
@@ -43,7 +44,7 @@ class admin(cantina):
         return senha == self.senha
 
     
-    def NovoProduto(self, Produto, qtdAdd, ValorCompra, DataCompra, Vencimento): #admin
+    def NovoProduto(self, Produto, qtdAdd, ValorCompra, DataCompra, Vencimento, lucro): #admin
          #global Listadprodutos
          nProduto = {
              'nome':Produto, 
@@ -51,7 +52,8 @@ class admin(cantina):
              'qtdAdd': qtdAdd, 
              'Valor da Compra':ValorCompra, 
              'Data da Compra':DataCompra, 
-             'Vencimento': Vencimento
+             'Vencimento': Vencimento,
+             'Lucro em %': lucro
         }
          self.Listadprodutos.append(nProduto)
 
@@ -60,8 +62,8 @@ class admin(cantina):
         '''if senha != thisAccountDict['senha']:
             print('Senha errada')
             return None'''
-        return thisAccountDict['qtdAdd']
-
+        return f"O produto {thisAccountDict['nome']} tem {thisAccountDict['qtdAdd']} com data de vencimento {thisAccountDict['Vencimento']}"
+    
     def repositor(self, idProduto, qtdAdd): #adcionar produto COM SENHA #admin
         #global Listadprodutos
         thisAccountDict = self.Listadprodutos[idProduto]

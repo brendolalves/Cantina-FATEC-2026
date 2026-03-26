@@ -6,9 +6,9 @@ login = False
 
 print("a identificação do produto Bolinho é: ", len(cantina.Listadprodutos))
 #NovoProduto("Bolinho", 10,  1, '01/01/2025', '01/01/2025')  #(Produto, ValorCompra, DataCompra, Vencimento):
-cantina.NovoProduto("Bolinho", 10,  1, '01/01/2025', '01/01/2025')
+cantina.NovoProduto("Bolinho", 10,  1, '01/01/2025', '01/01/2025', 5)
 print("a identificação do produto Salgadinho é: ", len(cantina.Listadprodutos))
-cantina.NovoProduto("Salgadinho", 10, 2, '01/01/2025', '01/01/2026') #(Produto, ValorCompra, DataCompra, Vencimento):
+cantina.NovoProduto("Salgadinho", 10, 2, '01/01/2025', '01/01/2026', 5) #(Produto, ValorCompra, DataCompra, Vencimento):
 
 while True:
     print()
@@ -113,11 +113,12 @@ while True:
                 break
             usuarioData = input('Quando foi a compra? ')
             usuarioVencimnto = input("Quando é o vencimento do produto? ")
+            usuarioLucro = float(input("Qual é o lucro em %? "))
 
         #temos que adicionar a data da compra e a data do vencimento
 
             ProdutoUsuario = len(cantina.Listadprodutos)
-            cantina.NovoProduto(produtoNovo, NovaQtd, usuarioCompra, usuarioData, usuarioVencimnto)
+            cantina.NovoProduto(produtoNovo, NovaQtd, usuarioCompra, usuarioData, usuarioVencimnto, usuarioLucro)
             print('Seu novo produto tem a identificação: ', ProdutoUsuario)
 
     elif action == 'q':
